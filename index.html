@@ -1429,7 +1429,12 @@
                     [0,5], [1,6], [2,7], [3,8], [4,9],
                     [5,7], [7,9], [9,6], [6,8], [8,5]
                 ],
-                chromatic: 3
+                chromatic: 3,
+                cycles: [
+                    {name: 'C₅', vertices: [0, 1, 2, 3, 4], description: 'a → b → c → d → e → a'},
+                    {name: 'C₆', vertices: [0, 1, 2, 7, 9, 5], description: 'a → b → c → h → g → f → a'},
+                    {name: 'C₇', vertices: [0, 1, 2, 3, 4, 9, 5], description: 'a → b → c → d → e → j → f → a'}
+                ]
             },
             wheel: {
                 vertices: [
@@ -1621,23 +1626,39 @@
         }
 
         function detectCycles() {
-            const cycles = findAllCycles();
             const cycleList = document.getElementById('cycleList');
             cycleList.innerHTML = '';
             
-            if (cycles.length === 0) {
-                cycleList.innerHTML = '<p style="color: #4caf50; font-weight: bold;">✅ No cycles detected! This is a tree.</p>';
-            } else {
-                cycles.forEach(cycle => {
-                    const isOdd = cycle.length % 2 === 1;
+            // Check if we're dealing with the Petersen graph and have predefined cycles
+            if (currentGraph === 'petersen' && graphs.petersen.cycles) {
+                const petersenCycles = graphs.petersen.cycles;
+                petersenCycles.forEach(cycleInfo => {
+                    const isOdd = cycleInfo.vertices.length % 2 === 1;
                     const div = document.createElement('div');
                     div.className = `cycle-item ${isOdd ? 'odd' : 'even'}`;
                     div.innerHTML = `
-                        <span>Cycle: ${cycle.map(i => vertices[i].label).join(' → ')} → ${vertices[cycle[0]].label}</span>
-                        <span class="badge ${isOdd ? 'odd' : 'even'}">${isOdd ? 'ODD' : 'EVEN'} (${cycle.length})</span>
+                        <span><strong>${cycleInfo.name}</strong>: ${cycleInfo.description}</span>
+                        <span class="badge ${isOdd ? 'odd' : 'even'}">${isOdd ? 'ODD' : 'EVEN'} (${cycleInfo.vertices.length})</span>
                     `;
                     cycleList.appendChild(div);
                 });
+            } else {
+                // Use the general cycle detection for other graphs
+                const cycles = findAllCycles();
+                if (cycles.length === 0) {
+                    cycleList.innerHTML = '<p style="color: #4caf50; font-weight: bold;">✅ No cycles detected! This is a tree.</p>';
+                } else {
+                    cycles.forEach(cycle => {
+                        const isOdd = cycle.length % 2 === 1;
+                        const div = document.createElement('div');
+                        div.className = `cycle-item ${isOdd ? 'odd' : 'even'}`;
+                        div.innerHTML = `
+                            <span>Cycle: ${cycle.map(i => vertices[i].label).join(' → ')} → ${vertices[cycle[0]].label}</span>
+                            <span class="badge ${isOdd ? 'odd' : 'even'}">${isOdd ? 'ODD' : 'EVEN'} (${cycle.length})</span>
+                        `;
+                        cycleList.appendChild(div);
+                    });
+                }
             }
             
             document.getElementById('cycleDetectorOutput').style.display = 'block';

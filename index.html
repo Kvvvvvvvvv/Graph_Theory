@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Graph Coloring Theory</title>
+    <title>Graph Coloring Theory</title>
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -839,7 +839,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎨 Advanced Graph Coloring Theory</h1>
+            <h1>🎨 Graph Coloring Theory</h1>
             <div class="mode-tabs">
                 <button class="mode-tab active" onclick="switchMode('explore')">🔬 Explore Mode</button>
                 <button class="mode-tab" onclick="switchMode('learn')">📚 Learn Mode</button>
@@ -1290,7 +1290,9 @@
                                 
                                 This produces a valid 2-coloring because in a tree, any two adjacent vertices differ in their distance from the root by exactly 1 (one is a parent, the other a child). Therefore, adjacent vertices will always have different colors.<br><br>
                                 
-                                <strong>Conclusion:</strong> Since T is bipartite, χ(T) = 2. ∎
+                                <strong>Conclusion:</strong> Since T is bipartite, χ(T) = 2. ∎<br><br>
+                                
+                                <strong>Video Reference:</strong> For a detailed explanation, watch <a href="https://youtu.be/3YFkKmFDVNU?si=SguvKAFVqvDPecAR" target="_blank">this video</a>.
                             </div>
                         </div>
                     </div>
@@ -1333,7 +1335,9 @@
                                 <span>▶</span>
                             </div>
                             <div class="proof-step-content">
-                                If we find two adjacent vertices with the same color, they must be part of an odd cycle. BFS explores the graph level by level, alternating colors. A conflict occurs precisely when there's an edge connecting vertices at the same "distance parity" from the start, which only happens in odd cycles.
+                                If we find two adjacent vertices with the same color, they must be part of an odd cycle. BFS explores the graph level by level, alternating colors. A conflict occurs precisely when there's an edge connecting vertices at the same "distance parity" from the start, which only happens in odd cycles.<br><br>
+                                
+                                <strong>Video Reference:</strong> For a detailed explanation of this algorithm, watch <a href="https://youtu.be/fGflLfK5TFo?si=Gewf-BH2hberCOMp" target="_blank">this video</a>.
                             </div>
                         </div>
                     </div>
